@@ -1,0 +1,42 @@
+# Runs PostgreSQL locally in a Docker container.
+#   Start:  docker compose up -d     (-d = run in the background)
+#   Stop:   docker compose down      (data is kept in the volume below)
+#
+# Why Docker instead of installing Postgres on my Mac?
+# - One command sets up the exact same database version on any machine.
+# - Nothing gets installed system-wide; deleting the container removes it cleanly.
+# - Production (Amazon RDS) also runs Postgres 17, so local matches prod.
+
+services:
+  db:
+    image: postgres:17
+
+    # These create the database user and database on first start.
+    # They must match DATABASE_URL in .env. Fine for local development;
+    # in production the password comes from AWS Secrets Manager instead.
+    environment:
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: portfolio
+      POSTGRES_DB: portfolio
+
+    # "host:container". Exposes Postgres on localhost:5433 so the
+    # FastAPI app (running on my Mac, outside Docker) can connect to it.
+    # Inside the container it's still the standard 5432; 5433 on the Mac side
+    # avoids clashing with another Postgres already using 5432.
+    ports:
+      - "5433:5432"
+
+    # A named volume stores the data outside the container,
+    # so it survives `docker compose down` and restarts.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+    # Docker checks every few seconds whether Postgres is ready to accept
+    # connections, so `docker compose ps` shows "healthy" once it's usable.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio"]
+      interval: 5s
+      retries: 5
+
+volumes:
+  pgdata:

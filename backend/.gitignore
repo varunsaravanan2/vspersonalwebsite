@@ -1,0 +1,10 @@
+# Virtual environment: big, machine-specific, and recreatable from requirements.txt
+.venv/
+
+# Python bytecode caches
+__pycache__/
+*.pyc
+
+# Real secrets (database password, etc.) never go into git.
+# .env.example is committed instead so others know which variables to set.
+.env

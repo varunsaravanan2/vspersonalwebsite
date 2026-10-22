@@ -1,0 +1,33 @@
+# Python packages the backend needs. Install with:  pip install -r requirements.txt
+#
+# Why a requirements file? Anyone (or any server, like AWS Lambda) can recreate
+# the exact same environment with one command instead of guessing what to install.
+
+# FastAPI: the web framework. It turns Python functions into HTTP endpoints
+# and auto-generates interactive API docs at /docs.
+fastapi>=0.115
+
+# Uvicorn: the server that actually runs FastAPI locally. FastAPI defines the
+# app; uvicorn listens on a port and hands incoming requests to it.
+uvicorn[standard]>=0.30
+
+# Pydantic: validates data coming in and going out (FastAPI depends on it).
+# pydantic-settings reads config like DATABASE_URL from environment variables.
+# email-validator lets Pydantic check that an email address is well-formed.
+pydantic-settings>=2.4
+email-validator>=2.2
+
+# SQLAlchemy: the ORM. Lets us define tables as Python classes and query them
+# without writing raw SQL strings everywhere.
+sqlalchemy>=2.0
+
+# psycopg: the driver that SQLAlchemy uses to actually talk to PostgreSQL.
+# The [binary] extra ships a precompiled version so no C compiler is needed.
+psycopg[binary]>=3.2
+
+# Alembic: database migrations, a version history for the table structure,
+# like git for the database schema.
+alembic>=1.13
+
+# Mangum: an adapter that lets this same FastAPI app run on AWS Lambda later.
+mangum>=0.17
