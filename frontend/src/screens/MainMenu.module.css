@@ -1,0 +1,97 @@
+/*
+  Layout: Projects takes a tall tile on the left (2 rows),
+  the other four fill a 2x2 grid to its right.
+*/
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(150px, 26vh));
+  gap: 10px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* The wrapper div of the Projects tile spans both rows. */
+.big {
+  grid-row: span 2;
+}
+
+.tile {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 28px;
+  text-decoration: none;
+  background: var(--tile);
+  /* Dark text on light tiles (yellow, white); light text is set on the
+     red/blue/green ones below. */
+  color: var(--bg);
+  /* The slanted parallelogram tile shape. */
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  transition: transform 0.15s, filter 0.15s;
+}
+
+/* Hover and keyboard focus look the same, so both kinds of users get feedback. */
+.tile:hover,
+.tile:focus-visible {
+  transform: scale(1.03);
+  filter: brightness(1.12);
+  /* clip-path would cut off a normal outline, so focus is shown by the scale instead. */
+  outline: none;
+}
+
+.game {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-transform: uppercase;
+  line-height: 1;
+  transform: skewX(-10deg);
+  transform-origin: left;
+}
+
+.big .game {
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* Light text on the darker tile colors. */
+.tile[href='/projects'],
+.tile[href='/skills'],
+.tile[href='/about'] {
+  color: var(--fg);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.hint kbd {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+}
+
+/* Phones: one column, every tile the same height. */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: 96px;
+  }
+  .big {
+    grid-row: span 1;
+  }
+  .hint {
+    display: none; /* no arrow keys on a phone */
+  }
+}

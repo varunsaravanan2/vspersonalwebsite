@@ -1,0 +1,71 @@
+.title {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 40px;
+  padding: 32px 16px;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  /* Dark red glow in the middle, fading to black at the edges. */
+  background: radial-gradient(circle at 50% 45%, #2a0d10 0%, var(--bg) 65%);
+}
+
+/* The giant faint "VS" behind the name. */
+.emblem {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: min(60vw, 70vh);
+  line-height: 1;
+  color: var(--fg);
+  opacity: 0.05;
+  transform: skewX(-10deg);
+  /* Clicks pass through it to the screen underneath. */
+  pointer-events: none;
+  user-select: none;
+}
+
+.name {
+  position: relative; /* sits above the emblem */
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  font-weight: 900;
+  transform: skewX(-10deg);
+  text-wrap: balance;
+}
+
+.role {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.28em;
+  letter-spacing: 0.35em;
+  color: var(--p1);
+}
+
+.press {
+  position: relative;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--p3);
+  background: none;
+  border: 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  /* steps(2): jump between visible and hidden instead of fading,
+     the hard on/off blink of an arcade screen. */
+  animation: blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,65 @@
+/*
+  CSS Modules: any file ending in .module.css gets its class names renamed to
+  something unique at build time (e.g. .title becomes .Screen_title_x7f2).
+  So a .title class here can never clash with a .title class in another
+  component's stylesheet. Each component's styles stay private to it.
+*/
+
+.screen {
+  min-height: 100%;
+  padding: 24px max(16px, 4vw) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  /* A faint wash of the section color in the corner, like the game's menus. */
+  background: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 55%), var(--bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  padding: 6px 18px 6px 14px;
+  background: var(--panel-2);
+  /* The angled parallelogram shape used for buttons across the site. */
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  transition: background 0.15s;
+}
+
+.back:hover {
+  background: var(--accent);
+}
+
+.kbd {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 0 5px;
+}
+
+.back:hover .kbd {
+  color: var(--fg);
+}
+
+.title {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 900;
+  /* The skewed italic look of Smash's menu headings. */
+  transform: skewX(-10deg);
+  border-left: 8px solid var(--accent);
+  padding-left: 14px;
+}

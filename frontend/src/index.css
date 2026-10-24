@@ -1,0 +1,91 @@
+/*
+  Global styles and design tokens.
+
+  Tokens are CSS custom properties (variables) defined once on :root and used
+  everywhere with var(--name). Changing a color here changes it site-wide,
+  so components never hard-code colors.
+
+  Palette: the four Smash player colors (P1-P4) are the only accents,
+  on a dark "menu screen" background.
+*/
+:root {
+  --bg: #0c0a12;       /* page background: near-black with a slight violet tint */
+  --panel: #16131e;    /* raised surfaces like cards */
+  --panel-2: #1f1b29;  /* slightly lighter surface */
+  --line: #2f2a3b;     /* borders and dividers */
+  --fg: #f4efe7;       /* main text: warm off-white, softer than pure white */
+  --muted: #a49dae;    /* secondary text */
+
+  --p1: #ec2a35;       /* red: projects */
+  --p2: #2f7dff;       /* blue: skills */
+  --p3: #ffc21a;       /* yellow: experience */
+  --p4: #25c060;       /* green: about */
+
+  /* Each font has fallbacks in case Google Fonts fails to load. */
+  --display: "Saira Extra Condensed", "Arial Narrow", Impact, sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Makes native scrollbars and form controls dark too. */
+  color-scheme: dark;
+}
+
+/* border-box: width includes padding and border, which makes sizing predictable. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  /* Prevents a sideways scrollbar during the diagonal screen transitions. */
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/*
+  Accessibility: a clear outline when navigating with the keyboard.
+  :focus-visible only shows it for keyboard focus, not on mouse clicks.
+*/
+:focus-visible {
+  outline: 3px solid var(--p3);
+  outline-offset: 3px;
+}
+
+/*
+  Respect the "reduce motion" setting in the visitor's OS. Some people get
+  dizzy or nauseous from animation, so effectively switch it off for them.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
